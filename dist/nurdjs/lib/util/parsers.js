@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.requestParser = exports.bodyParser = void 0;
+exports.requestParser = exports.constructPath = exports.bodyParser = void 0;
 const errors_1 = require("./errors");
 const bodyParser = (req) => {
     return new Promise((resolve, reject) => {
@@ -32,21 +32,21 @@ const bodyParser = (req) => {
     });
 };
 exports.bodyParser = bodyParser;
+const constructPath = (path) => {
+    // remove trailing slash
+    if (path.endsWith('/'))
+        path = path.slice(0, -1);
+    // remove params
+    if (path.includes(':'))
+        path = path.split('/:')[0];
+    return path;
+};
+exports.constructPath = constructPath;
 const requestParser = (req) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
     if (!req.url || !req.method)
         throw new errors_1.NotFoundError();
-    const url = req.url.includes(":") ?
-        req.url.split(":")[0] :
-        req.url;
-    return {
-        base: "/" + url.split("/")[1] || "/",
-        routePath: "/" + url.split("/")[2],
-        path: req.method.toLowerCase() + url,
-        url,
-        method: req.method.toLowerCase(),
-        params: (_a = req.url) === null || _a === void 0 ? void 0 : _a.split(":")[1],
-        body: yield (0, exports.bodyParser)(req),
-    };
+    const url = new URL(req.url, `http://${req.headers.host}`);
+    const path = (0, exports.constructPath)(url.pathname);
+    return Object.assign(Object.assign({}, url), { base: "/" + (path.split("/")[1] || ""), routePath: "/" + (path.split("/")[2] || ""), path: req.method.toLowerCase() + path, url: url.pathname, method: req.method.toLowerCase(), params: new Map(), body: yield (0, exports.bodyParser)(req) });
 });
 exports.requestParser = requestParser;

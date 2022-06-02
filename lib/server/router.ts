@@ -92,7 +92,10 @@ export class Router {
         }
 
         const response = await func(req, res, next);
-        if (response) result = true;
+        if (response) {
+          result = true;
+          break;
+        }
       } catch (e) {
           continue;
       }
@@ -145,19 +148,6 @@ export class Router {
         return await route.callback(req, res);
       }
 
-      // else if (this.routes.has(path + "/")) {
-
-      //   const route = this.routes.get(path + "/");
-      
-      //   if (!route) throw new NotFoundError();
-
-      //   if (route.middleware.length > 0) {
-      //     const result = await this.executeMiddleware(route.middleware, req, res);
-      //     if (result) return;
-      //   };
-      //   return await route.callback(req, res);
-      // }
-      
       else if (this.routes.has(path.slice(0, path.lastIndexOf('/')))) {
         
         const route = this.routes.get(path.slice(0, path.lastIndexOf('/')))

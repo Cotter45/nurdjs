@@ -10,8 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.testRouter = void 0;
-const nurdjs_1 = require("../../nurdjs");
-const testRouter = new nurdjs_1.Router();
+const router_1 = require("../../lib/server/router");
+const testRouter = new router_1.Router();
 exports.testRouter = testRouter;
 const data = {
     wow: "I can't believe this is an api!"

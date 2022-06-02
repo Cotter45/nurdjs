@@ -125,10 +125,22 @@ class Router {
                     ;
                     return yield route.callback(req, res);
                 }
-                else if (this.routes.has(path + "/")) {
-                    const route = this.routes.get(path + "/");
+                // else if (this.routes.has(path + "/")) {
+                //   const route = this.routes.get(path + "/");
+                //   if (!route) throw new NotFoundError();
+                //   if (route.middleware.length > 0) {
+                //     const result = await this.executeMiddleware(route.middleware, req, res);
+                //     if (result) return;
+                //   };
+                //   return await route.callback(req, res);
+                // }
+                else if (this.routes.has(path.slice(0, path.lastIndexOf('/')))) {
+                    const route = this.routes.get(path.slice(0, path.lastIndexOf('/')));
                     if (!route)
                         throw new errors_1.NotFoundError();
+                    if (route.paramName) {
+                        req.params.set(route.paramName, path.slice(path.lastIndexOf('/') + 1));
+                    }
                     if (route.middleware.length > 0) {
                         const result = yield this.executeMiddleware(route.middleware, req, res);
                         if (result)
