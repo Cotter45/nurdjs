@@ -1,6 +1,5 @@
 import path from 'path';
-// import { Server } from "./lib/server";
-import { Server } from "./nurdjs"
+import { Server } from "./lib/server";
 import { staticRouter } from "./routes/static";
 import { apiRouter } from "./routes/api";
 

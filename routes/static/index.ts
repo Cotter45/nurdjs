@@ -1,4 +1,4 @@
-import { Router } from "../../nurdjs";
+import { Router } from "../../lib/server/router";
 import path from "path";
 
 const staticRouter = new Router();

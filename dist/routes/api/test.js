@@ -25,6 +25,7 @@ const mid1 = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () 
     // return next();
 });
 testRouter.get('/', [mid1], (req, res) => {
+    // throw new Error('API ROUTE MIDDLEWARE 1');
     return res.status(200).json(data);
 });
 testRouter.get('/poop/:id', [], (req, res) => {

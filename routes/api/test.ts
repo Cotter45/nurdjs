@@ -17,6 +17,7 @@ const mid1 = async (req: Req, res: Res, next: Function) => {
 }
 
 testRouter.get('/', [mid1], (req: Req, res: Res) => {
+  // throw new Error('API ROUTE MIDDLEWARE 1');
   return res.status(200).json(data);
 })
 
