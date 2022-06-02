@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/static/css/main.e7a47e65.css",
+    "main.js": "/static/js/main.2931d470.js",
+    "static/js/27.e90dcb28.chunk.js": "/static/js/27.e90dcb28.chunk.js",
+    "static/media/mario.png": "/static/media/mario.b1392f1f5f516f283a6a.png",
+    "index.html": "/index.html"
+  },
+  "entrypoints": [
+    "static/css/main.e7a47e65.css",
+    "static/js/main.2931d470.js"
+  ]
+}
