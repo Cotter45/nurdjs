@@ -77,8 +77,10 @@ class Router {
                         return false;
                     });
                     const response = yield func(req, res, next);
-                    if (response)
+                    if (response) {
                         result = true;
+                        break;
+                    }
                 }
                 catch (e) {
                     continue;
@@ -125,15 +127,6 @@ class Router {
                     ;
                     return yield route.callback(req, res);
                 }
-                // else if (this.routes.has(path + "/")) {
-                //   const route = this.routes.get(path + "/");
-                //   if (!route) throw new NotFoundError();
-                //   if (route.middleware.length > 0) {
-                //     const result = await this.executeMiddleware(route.middleware, req, res);
-                //     if (result) return;
-                //   };
-                //   return await route.callback(req, res);
-                // }
                 else if (this.routes.has(path.slice(0, path.lastIndexOf('/')))) {
                     const route = this.routes.get(path.slice(0, path.lastIndexOf('/')));
                     if (!route)

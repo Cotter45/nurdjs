@@ -1,0 +1,26 @@
+import { IncomingMessage } from "http";
+export declare const bodyParser: (req: IncomingMessage) => Promise<unknown>;
+export declare const constructPath: (path: string) => string;
+export declare const requestParser: (req: IncomingMessage) => Promise<{
+    base: string;
+    routePath: string;
+    path: string;
+    url: string;
+    method: string;
+    params: Map<any, any>;
+    body: unknown;
+    hash: string;
+    host: string;
+    hostname: string;
+    href: string;
+    toString(): string;
+    origin: string;
+    password: string;
+    pathname: string;
+    port: string;
+    protocol: string;
+    search: string;
+    searchParams: URLSearchParams;
+    username: string;
+    toJSON(): string;
+}>;
