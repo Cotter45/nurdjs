@@ -2,8 +2,9 @@ import fs from 'fs';
 import * as http from 'http';
 
 import { NotFoundError, renderError } from '../util/errors';
-import { requestParser } from '../util/parsers';
-import { Response } from './response';
+import { requestParser, Req } from '../util/parsers';
+import { Res } from './response';
+import { Router } from './router';
 
 export class Server {
   declare routers: Map<string, Router>;
@@ -74,8 +75,8 @@ export class Server {
   constructServer() {
     const server = http.createServer( async (request: http.IncomingMessage, response: http.ServerResponse) => {
       try {
-        const req: Req = await requestParser(request);
-        const res: Res = new Response(response);
+        const req = await requestParser(request);
+        const res: Res = new Res(response);
 
         res.setSecurityHeaders();
 
@@ -101,7 +102,7 @@ export class Server {
                 
         return await router.seekAndExecuteRoute(req, res);
       } catch (e: any) {
-        const res: Res = new Response(response);
+        const res: Res = new Res(response);
         return renderError(e, res);
       }
     })

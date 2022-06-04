@@ -30,7 +30,29 @@ export const constructPath = (path: string) => {
   return path;
 }
 
-export const requestParser = async (req: IncomingMessage) => {
+export type Req = {
+  base: string;
+  path: string;
+  routePath: string;
+  url: string;
+  method: string;
+  params: Map<any, any>;
+  body: unknown;
+  hash: string;
+  host: string;
+  hostname: string;
+  href: string;
+  origin: string;
+  password: string;
+  pathname: string;
+  port: string;
+  protocol: string;
+  search: string;
+  searchParams: URLSearchParams;
+  username: string;
+}
+
+export const requestParser = async (req: IncomingMessage): Promise<Req> => {
   if (!req.url || !req.method) throw new NotFoundError();
 
   const url = new URL(req.url, `http://${req.headers.host}`);

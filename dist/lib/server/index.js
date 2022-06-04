@@ -103,7 +103,7 @@ class Server {
         const server = http.createServer((request, response) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const req = yield (0, parsers_1.requestParser)(request);
-                const res = new response_1.Response(response);
+                const res = new response_1.Res(response);
                 res.setSecurityHeaders();
                 if (this.static.has(req.base)) {
                     const directory = this.static.get(req.base);
@@ -126,7 +126,7 @@ class Server {
                 return yield router.seekAndExecuteRoute(req, res);
             }
             catch (e) {
-                const res = new response_1.Response(response);
+                const res = new response_1.Res(response);
                 return (0, errors_1.renderError)(e, res);
             }
         }));

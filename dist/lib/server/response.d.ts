@@ -1,6 +1,6 @@
 /// <reference types="node" />
 import { ServerResponse } from 'http';
-export declare class Response {
+export declare class Res {
     res: ServerResponse;
     mimeTypes: {
         [key: string]: string;

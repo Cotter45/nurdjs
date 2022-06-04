@@ -2,7 +2,7 @@ import { ServerResponse } from 'http';
 import fs from 'fs';
 import { NotFoundError } from '../util/errors';
 
-export class Response {
+export class Res {
 
   declare res: ServerResponse;
   declare mimeTypes: {[key: string]: string};

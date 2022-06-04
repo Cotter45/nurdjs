@@ -1,4 +1,7 @@
 import { Router } from "../../lib/server/router";
+const { Park } = require('../../db/models');
+import { Req } from "../../lib/util/parsers";
+import { Res } from "../../lib/server/response";
 
 const testRouter = new Router();
 
@@ -16,12 +19,14 @@ const mid1 = async (req: Req, res: Res, next: Function) => {
   // return next();
 }
 
-testRouter.get('/', [mid1], (req: Req, res: Res) => {
+testRouter.get('/', [], async (req: Req, res: Res) => {
   // throw new Error('API ROUTE MIDDLEWARE 1');
-  return res.status(200).json(data);
+  // get parks from db
+  const parks = await Park.findAll();
+  return res.status(200).json(parks);
 })
 
-testRouter.get('/poop/:id', [], (req: Req, res: Res) => {
+testRouter.get('/poop/:id', [], async (req: Req, res: Res) => {
   const id = req.params.get('id');
   console.log(id, "ID");
   return res.status(200).json(data);

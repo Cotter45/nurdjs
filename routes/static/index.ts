@@ -1,4 +1,6 @@
 import { Router } from "../../lib/server/router";
+import { Req } from "../../lib/util/parsers";
+import { Res } from "../../lib/server/response";
 import path from "path";
 
 const staticRouter = new Router();

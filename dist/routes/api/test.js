@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.testRouter = void 0;
 const router_1 = require("../../lib/server/router");
+const { Park } = require('../../db/models');
 const testRouter = new router_1.Router();
 exports.testRouter = testRouter;
 const data = {
@@ -24,12 +25,14 @@ const mid1 = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () 
     return res.status(200).json(data2);
     // return next();
 });
-testRouter.get('/', [mid1], (req, res) => {
+testRouter.get('/', [], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // throw new Error('API ROUTE MIDDLEWARE 1');
-    return res.status(200).json(data);
-});
-testRouter.get('/poop/:id', [], (req, res) => {
+    // get parks from db
+    const parks = yield Park.findAll();
+    return res.status(200).json(parks);
+}));
+testRouter.get('/poop/:id', [], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.get('id');
     console.log(id, "ID");
     return res.status(200).json(data);
-});
+}));
