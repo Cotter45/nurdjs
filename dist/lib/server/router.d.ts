@@ -1,4 +1,6 @@
 import { Route } from "./route";
+import { Req } from "../util/parsers";
+import { Res } from "../server/response";
 export declare class Router {
     path: string;
     middleware: Function[];

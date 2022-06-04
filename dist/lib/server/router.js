@@ -102,19 +102,17 @@ class Router {
                     if (response)
                         return;
                 }
-                ;
                 if (this.routers.has(routePath)) {
                     const router = this.findRouter(routePath);
                     if (!router)
                         throw new errors_1.NotFoundError();
                     yield router.seekAndExecuteRoute(req, res, this.getPath() + routePath);
                 }
-                else if (this.routers.has(path)) {
-                    const router = this.findRouter(routePath);
-                    if (!router)
-                        throw new errors_1.NotFoundError();
-                    yield router.seekAndExecuteRoute(req, res, this.getPath());
-                }
+                // else if (this.routers.has(path)) {
+                //   const router = this.findRouter(routePath);
+                //   if (!router) throw new NotFoundError();
+                //   await router.seekAndExecuteRoute(req, res, this.getPath());
+                // }
                 else if (this.routes.has(path)) {
                     const route = this.routes.get(path);
                     if (!route)

@@ -1,5 +1,7 @@
 import { NotFoundError, renderError } from "../util/errors";
 import { Route } from "./route";
+import { Req } from "../util/parsers";
+import { Res } from "../server/response";
 
 // this class is used to create new routes and manage existing routes
 export class Router {
@@ -115,7 +117,7 @@ export class Router {
       if (this.middleware.length > 0) {
         const response = await this.executeMiddleware(this.middleware, req, res)
         if (response) return;
-      };
+      }
 
       if (this.routers.has(routePath)) {
         
@@ -126,14 +128,14 @@ export class Router {
         await router.seekAndExecuteRoute(req, res, this.getPath() + routePath);
       }
 
-      else if (this.routers.has(path)) {
+      // else if (this.routers.has(path)) {
         
-        const router = this.findRouter(routePath);
+      //   const router = this.findRouter(routePath);
 
-        if (!router) throw new NotFoundError();
+      //   if (!router) throw new NotFoundError();
         
-        await router.seekAndExecuteRoute(req, res, this.getPath());
-      }
+      //   await router.seekAndExecuteRoute(req, res, this.getPath());
+      // }
 
       else if (this.routes.has(path)) {
 

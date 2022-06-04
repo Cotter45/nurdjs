@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.apiRouter = void 0;
 const router_1 = require("../../lib/server/router");
 const test_1 = require("./test");
+const parks_1 = require("./parks");
 const apiRouter = new router_1.Router();
 exports.apiRouter = apiRouter;
 apiRouter.useRouter("/test", test_1.testRouter);
+apiRouter.useRouter("/parks", parks_1.parksRouter);

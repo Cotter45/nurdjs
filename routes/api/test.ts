@@ -19,7 +19,7 @@ const mid1 = async (req: Req, res: Res, next: Function) => {
   // return next();
 }
 
-testRouter.get('/', [], async (req: Req, res: Res) => {
+testRouter.get('/', [mid1], async (req: Req, res: Res) => {
   // throw new Error('API ROUTE MIDDLEWARE 1');
   // get parks from db
   const parks = await Park.findAll();
