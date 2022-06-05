@@ -50,6 +50,7 @@ export type Req = {
   search: string;
   searchParams: URLSearchParams;
   username: string;
+  cookies: { [key: string]: string };
 }
 
 export const requestParser = async (req: IncomingMessage): Promise<Req> => {
@@ -67,5 +68,7 @@ export const requestParser = async (req: IncomingMessage): Promise<Req> => {
     method: req.method.toLowerCase(),
     params: new Map(),
     body: await bodyParser(req),
+    // @ts-ignore
+    cookies: req.cookies,
   }
 }

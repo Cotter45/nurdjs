@@ -52,7 +52,7 @@ export class Server {
     return this.routers.get(path);
   }
 
-  async executeMiddleware(middleware: Function[], req: Req, res: Res): Promise<boolean> {
+  async executeMiddleware(middleware: Function[], req: http.IncomingMessage, res: http.ServerResponse): Promise<boolean> {
     if (!middleware.length) return false;
     let result = false;
     
@@ -75,10 +75,21 @@ export class Server {
   constructServer() {
     const server = http.createServer( async (request: http.IncomingMessage, response: http.ServerResponse) => {
       try {
+        
+        // execute any router specific middleware
+        if (this.middleware.length > 0) {
+          const result = await this.executeMiddleware(this.middleware, request, response)
+          if (result) return;
+        }
+
         const req = await requestParser(request);
         const res: Res = new Res(response);
-
-        res.setSecurityHeaders();
+        
+        if (request.method === "OPTIONS") {
+          response.writeHead(204, res.headers);
+          response.end();
+          return;
+        }
 
         if (this.static.has(req.base)) {
           const directory = this.static.get(req.base);
@@ -89,12 +100,6 @@ export class Server {
         if (res.getMimes()[req.url.split('.')[1]] && fs.existsSync(this.public + req.url)) {
           return this.serveStatic(this.public + req.url, res);
         }
-
-        // execute any server middleware
-        if (this.middleware.length > 0) {
-          const result = await this.executeMiddleware(this.middleware, req, res)
-          if (result) return;
-        };
 
         const router = this.findRouter(req.base);
 

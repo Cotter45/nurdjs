@@ -7,7 +7,7 @@
     "lib": "lib"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "NODE_ENV=production node ./dist/bin/www",
     "dev": "concurrently \"npx tsc --watch\" \"nodemon ./dist/bin/www\"",
     "test": "mocha --timeout 10000"
   },
@@ -18,9 +18,15 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "csurf": "^1.11.0",
     "dotenv": "^16.0.0",
+    "helmet": "^5.1.0",
+    "jsonwebtoken": "^8.5.1",
     "per-env": "^1.0.2",
     "pg": "^8.7.3",
+    "redis": "^4.1.0",
     "sequelize": "^6.20.1",
     "sequelize-cli": "^6.4.1"
   },

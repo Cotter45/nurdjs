@@ -21,5 +21,8 @@ export declare type Req = {
     search: string;
     searchParams: URLSearchParams;
     username: string;
+    cookies: {
+        [key: string]: string;
+    };
 };
 export declare const requestParser: (req: IncomingMessage) => Promise<Req>;

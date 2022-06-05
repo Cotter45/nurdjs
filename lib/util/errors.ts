@@ -1,3 +1,5 @@
+import { Res } from '../server/response';
+
 interface ServerError extends Error {
   statusCode: number;
 }

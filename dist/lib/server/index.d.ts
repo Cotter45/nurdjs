@@ -1,6 +1,5 @@
 /// <reference types="node" />
 import * as http from 'http';
-import { Req } from '../util/parsers';
 import { Res } from './response';
 import { Router } from './router';
 export declare class Server {
@@ -15,6 +14,6 @@ export declare class Server {
     serveStatic(path: string, res: Res): http.ServerResponse;
     useRouter(path: string, router: Router): Map<string, Router>;
     findRouter(path: string): Router | undefined;
-    executeMiddleware(middleware: Function[], req: Req, res: Res): Promise<boolean>;
+    executeMiddleware(middleware: Function[], req: http.IncomingMessage, res: http.ServerResponse): Promise<boolean>;
     constructServer(): http.Server;
 }

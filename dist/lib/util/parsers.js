@@ -47,6 +47,8 @@ const requestParser = (req) => __awaiter(void 0, void 0, void 0, function* () {
         throw new errors_1.NotFoundError();
     const url = new URL(req.url, `http://${req.headers.host}`);
     const path = (0, exports.constructPath)(url.pathname);
-    return Object.assign(Object.assign({}, url), { base: "/" + (path.split("/")[1] || ""), routePath: "/" + (path.split("/")[2] || ""), path: req.method.toLowerCase() + path, url: url.pathname, method: req.method.toLowerCase(), params: new Map(), body: yield (0, exports.bodyParser)(req) });
+    return Object.assign(Object.assign({}, url), { base: "/" + (path.split("/")[1] || ""), routePath: "/" + (path.split("/")[2] || ""), path: req.method.toLowerCase() + path, url: url.pathname, method: req.method.toLowerCase(), params: new Map(), body: yield (0, exports.bodyParser)(req), 
+        // @ts-ignore
+        cookies: req.cookies });
 });
 exports.requestParser = requestParser;

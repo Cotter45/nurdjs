@@ -102,9 +102,19 @@ class Server {
     constructServer() {
         const server = http.createServer((request, response) => __awaiter(this, void 0, void 0, function* () {
             try {
+                // execute any router specific middleware
+                if (this.middleware.length > 0) {
+                    const result = yield this.executeMiddleware(this.middleware, request, response);
+                    if (result)
+                        return;
+                }
                 const req = yield (0, parsers_1.requestParser)(request);
                 const res = new response_1.Res(response);
-                res.setSecurityHeaders();
+                if (request.method === "OPTIONS") {
+                    response.writeHead(204, res.headers);
+                    response.end();
+                    return;
+                }
                 if (this.static.has(req.base)) {
                     const directory = this.static.get(req.base);
                     const filepath = directory + req.url;
@@ -113,13 +123,6 @@ class Server {
                 if (res.getMimes()[req.url.split('.')[1]] && fs_1.default.existsSync(this.public + req.url)) {
                     return this.serveStatic(this.public + req.url, res);
                 }
-                // execute any server middleware
-                if (this.middleware.length > 0) {
-                    const result = yield this.executeMiddleware(this.middleware, req, res);
-                    if (result)
-                        return;
-                }
-                ;
                 const router = this.findRouter(req.base);
                 if (!router)
                     throw new errors_1.NotFoundError();

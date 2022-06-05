@@ -13,7 +13,7 @@ const db = require('../db/models');
 if (cluster.isMaster) {
   console.log(`Master ${process.pid} is running`);
   
-  const numWorkers = Math.min(...[3, totalCPUs]);
+  const numWorkers = Math.min(...[5, totalCPUs]);
   
   // Fork workers.
   for (let i = 0; i < numWorkers; i++) {

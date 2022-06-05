@@ -20,11 +20,16 @@ parksRouter.get('/', [], (req, res) => __awaiter(void 0, void 0, void 0, functio
     const parks = yield Park.findAll();
     return res.status(200).json(parks);
 }));
-parksRouter.get('/test/:id', [], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+parksRouter.get('/park/:id', [], (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.get('id');
-    console.log(id, "ID");
+    console.log(id, "ID", process.env.NODE_ENV);
     // throw new Error('API ROUTE MIDDLEWARE 1');
     // get parks from db
-    const parks = yield Park.findAll();
-    return res.status(200).json({ test: 'test' });
+    const park = yield Park.findByPk(+id);
+    return res.status(200).json(park);
+    // let parks = await redisClient.get('parks');
+    // if (parks) return res.status(200).send(parks);
+    // parks = await Park.findAll();
+    // await redisClient.set('parks', JSON.stringify(parks));
+    // return res.status(200).json(parks);
 }));

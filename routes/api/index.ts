@@ -6,5 +6,5 @@ const apiRouter = new Router();
 apiRouter.useRouter("/test", testRouter);
 apiRouter.useRouter("/parks", parksRouter);
 
-export { apiRouter};
+export { apiRouter };
 

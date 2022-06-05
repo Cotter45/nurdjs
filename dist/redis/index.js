@@ -8,25 +8,28 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const redis = require("redis");
-// const redisClient = redis.createClient({
-//   url: process.env.REDIS_URL,
-//   auth_pass: process.env.REDIS_PASSWORD,
-//   password: process.env.REDIS_PASSWORD
-// })
-let redisClient;
-if (process.env.NODE_ENV === "production") {
-    redisClient = redis.createClient({
-        url: process.env.REDISTOGO_URL,
-    });
-}
-else {
-    redisClient = redis.createClient({
-        url: process.env.REDIS_URL,
-        auth_pass: process.env.REDIS_PASSWORD,
-        password: process.env.REDIS_PASSWORD
-    });
-}
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.redisClient = void 0;
+// const redis = require("redis");
+const redis_1 = require("redis");
+const redisClient = (0, redis_1.createClient)({
+    url: process.env.REDIS_URL,
+    // auth_pass: process.env.REDIS_PASSWORD,
+    password: process.env.REDIS_PASSWORD
+});
+exports.redisClient = redisClient;
+// let redisClient: any;
+// if (process.env.NODE_ENV === "production") {
+//   redisClient = redis.createClient({
+//     url: process.env.REDISTOGO_URL,
+//   });
+// } else {
+//   redisClient = redis.createClient({
+//     url: process.env.REDIS_URL,
+//     auth_pass: process.env.REDIS_PASSWORD,
+//     password: process.env.REDIS_PASSWORD
+//   })
+// }
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield redisClient.connect();
@@ -38,4 +41,3 @@ else {
     console.log(yield redisClient.get("test"));
     redisClient.on('error', (err) => console.log('Redis Client Error', err));
 }))();
-module.exports = redisClient;
